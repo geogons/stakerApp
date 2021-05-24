@@ -9,9 +9,9 @@ const main = async () => {
 
   console.log("\n\n 📡 Deploying...\n");
 
-  const exampleExternalContract = await deploy("ExampleExternalContract")
+  const vaultContract = await deploy("VaultContract")
 
-  const stakerContract = await deploy("Staker",[ exampleExternalContract.address ]) // <-- add in constructor args like line 16 vvvv
+  const stakerContract = await deploy("Staker",[ vaultContract.address ]) // <-- add in constructor args like line 16 vvvv
 
 
   //const secondContract = await deploy("SecondContract")
@@ -64,6 +64,11 @@ const deploy = async (contractName, _args = [], overrides = {}, libraries = {}) 
   const deployed = await contractArtifacts.deploy(...contractArgs, overrides);
   const encoded = abiEncodeArgs(deployed, contractArgs);
   fs.writeFileSync(`artifacts/${contractName}.address`, deployed.address);
+
+  //change the ownership of the vaultContract to my address so I can withdraw the funds
+  if (contractName === "VaultContract"){
+    deployed.transferOwnership("0x0cD5A239D4Bea997D6481217589baD28cA65B131");
+  }
 
   console.log(
     " 📄",

@@ -132,20 +132,20 @@ function App(props) {
 
 
 
-  const complete = useContractReader(readContracts,"ExampleExternalContract", "completed")
+  const complete = useContractReader(readContracts,"VaultContract", "completed")
   console.log("✅ complete:",complete)
 
-  const exampleExternalContractBalance = useBalance(localProvider, readContracts && readContracts.ExampleExternalContract.address);
-  if(DEBUG) console.log("💵 exampleExternalContractBalance", exampleExternalContractBalance )
+  const vaultContractBalance = useBalance(localProvider, readContracts && readContracts.VaultContract.address);
+  if(DEBUG) console.log("💵 vaultContractBalance", vaultContractBalance )
 
 
   let completeDisplay = ""
   if(complete){
     completeDisplay = (
       <div style={{padding:64, backgroundColor:"#eeffef", fontWeight:"bolder"}}>
-        🚀 🎖 👩‍🚀  -  Staking App triggered `ExampleExternalContract` -- 🎉  🍾   🎊
+        🚀 🎖 👩‍🚀  -  Staking App triggered `VaultContract` -- 🎉  🍾   🎊
         <Balance
-          balance={exampleExternalContractBalance}
+          balance={vaultContractBalance}
           fontSize={64}
         /> ETH staked!
       </div>
@@ -206,7 +206,7 @@ function App(props) {
         <Button type={"primary"} onClick={()=>{
           faucetTx({
             to: address,
-            value: parseEther("0.01"),
+            value: parseEther("1"),
           });
           setFaucetClicked(true)
         }}>
@@ -349,7 +349,7 @@ function App(props) {
               blockExplorer={blockExplorer}
             />
             <Contract
-              name="ExampleExternalContract"
+              name="VaultContract"
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}

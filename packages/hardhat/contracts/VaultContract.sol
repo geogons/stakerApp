@@ -1,6 +1,8 @@
 pragma solidity >=0.6.0 <0.7.0;
 
-contract ExampleExternalContract {
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract VaultContract is Ownable {
 
   bool public completed;
 
