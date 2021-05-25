@@ -10,4 +10,12 @@ contract VaultContract is Ownable {
     completed = true;
   }
 
+  //the owner can withdraw the funds to their wallet
+  function withdraw()
+  public
+  onlyOwner
+  {
+    msg.sender.transfer(address(this).balance);
+  }
+
 }

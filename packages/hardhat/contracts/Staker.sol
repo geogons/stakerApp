@@ -10,11 +10,10 @@ contract Staker {
   mapping(address => uint256) public balances;
   event Stake(address, uint256);
   uint256 public constant threshold = 1 ether;
-  uint256 public deadline = now + 30 seconds;
+  uint256 public deadline = now + 30 minutes;
 
   constructor(address vaultContractAddress) public {
     vaultContract = VaultContract(vaultContractAddress);
-    //vaultContract.transferOwnership(0x0cD5A239D4Bea997D6481217589baD28cA65B131);
   }
 
   // Collect funds in a payable `stake()` function and track individual `balances` with a mapping:
@@ -45,6 +44,11 @@ contract Staker {
     require(address(this).balance >= threshold, "Threshold not met");
     _;
   }  
+
+  /* modifier notCompleted(){
+    require(vaultContract.completed, "Process not completed yet");
+    _;
+  } */
 
   function execute()
   public
